@@ -1,0 +1,14 @@
+{
+     "type": "record",
+     "namespace": "com.example",
+     "name": "Customer",
+     "doc": "Avro schema for customer information",
+     "fields": [
+       { "name": "first-name", "type": "string", "doc": "First name" },
+       { "name": "last-name", "type": "string", "doc": "Last name" },
+       { "name": "age", "type": "int", "doc": "" },
+       { "name": "height", "type": "float", "doc": "Height in centimeters" },
+       { "name": "weight", "type": "float", "doc": "Weight in kilograns" },
+       { "name": "automated_email", "type": "boolean", "default": true, "doc": "True if customer wants receive marketing emails" }
+     ]  
+}
