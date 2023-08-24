@@ -96,7 +96,7 @@ public class GenericRecordExamples {
             System.out.println("First name: " + customerRead.get("first_name"));
 
             // read a non existent field
-            System.out.println("Non existent field: " + customerRead.get("not_here"));
+            //System.out.println("Non existent field: " + customerRead.get("not_here"));
         }
         catch(IOException e) {
             e.printStackTrace();
