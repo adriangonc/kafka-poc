@@ -1,10 +1,13 @@
 package org.simplepoc.avro.generic;
 
 import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecordBuilder;
+import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
 
 import java.io.File;
@@ -53,7 +56,23 @@ public class GenericRecord {
             e.printStackTrace();
         }
 
-        //TODO read a generic record from a file
+        //read a generic record from a file
+        final File file = new File("customer-generic.avro");
+        final DatumReader<org.apache.avro.generic.GenericRecord> datumReader = new GenericDatumReader<>();
+        org.apache.avro.generic.GenericRecord customerRead;
+        try (DataFileReader<org.apache.avro.generic.GenericRecord> dataFileReader = new DataFileReader<>(file, datumReader)) {
+            customerRead = dataFileReader.next();
+            System.out.println("Successfully read avro file");
+            System.out.println(customerRead.toString());
+
+            // get the data from the generic record
+            System.out.println("First name: " + customerRead.get("first_name"));
+
+            // read a non existent field
+            //System.out.println("Non existent field: " + customerRead.get("not_here"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //TODO interpret as a generic record
     }
