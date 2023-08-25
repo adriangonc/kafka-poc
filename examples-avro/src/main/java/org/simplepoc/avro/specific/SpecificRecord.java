@@ -26,15 +26,14 @@ public class SpecificRecord {
 
         System.out.println(customer);
 
-
-        //write to  a file
+        //write to a file
         final DatumWriter<Customer> datumWriter = new SpecificDatumWriter<>(Customer.class);
 
         try (DataFileWriter<Customer> dataFileWriter = new DataFileWriter<>(datumWriter)) {
             dataFileWriter.create(customer.getSchema(), new File("customer-specific.avro"));
             dataFileWriter.append(customer);
             System.out.println("successfully wrote customer-specific.avro");
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -57,7 +56,6 @@ public class SpecificRecord {
 
         //TODO interpret
     }
-
 
 
 }
