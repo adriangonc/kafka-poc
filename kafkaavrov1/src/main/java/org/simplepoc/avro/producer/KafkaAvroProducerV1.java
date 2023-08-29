@@ -2,8 +2,10 @@ package org.simplepoc.avro.producer;
 
 import com.example.Customer;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
@@ -30,6 +32,22 @@ public class KafkaAvroProducerV1 {
         ProducerRecord<String, Customer> producerRecord = new ProducerRecord<String, Customer>(
                 TOPIC, customer
         );
+
+        kafkaProducer.send(producerRecord, new Callback() {
+            @Override
+            public void onCompletion(RecordMetadata recordMetadata, Exception exception) {
+                if (exception == null) {
+                    System.out.println("Event send to Kafka");
+                    System.out.println(recordMetadata.toString());
+                } else {
+                    System.out.println("Failed to send to Kafka");
+                    exception.printStackTrace();
+                }
+            }
+        });
+
+        kafkaProducer.flush();
+        kafkaProducer.close();
     }
 
     private static Customer getTestCustomer() {
