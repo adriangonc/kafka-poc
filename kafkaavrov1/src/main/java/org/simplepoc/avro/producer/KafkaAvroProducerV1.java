@@ -1,5 +1,6 @@
 package org.simplepoc.avro.producer;
 
+import com.example.Customer;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -24,12 +25,22 @@ public class KafkaAvroProducerV1 {
 
         properties.setProperty("schema.registry.url", SCHEMA_REGISTRY_URL);
 
-/*        KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<String, Customer>(properties);
-        Customer customer = ???;
-
+        KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<String, Customer>(properties);
+        Customer customer = getTestCustomer();
         ProducerRecord<String, Customer> producerRecord = new ProducerRecord<String, Customer>(
                 TOPIC, customer
-        );*/
+        );
+    }
+
+    private static Customer getTestCustomer() {
+        return Customer.newBuilder()
+                .setFirstName("Adriano")
+                .setLastName("Goncalves")
+                .setAge(35)
+                .setHeight(173.4f)
+                .setWeight(80.9f)
+                .setAutomatedEmail(false)
+                .build();
     }
 
 }
