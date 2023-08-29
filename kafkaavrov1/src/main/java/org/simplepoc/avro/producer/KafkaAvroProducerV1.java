@@ -7,20 +7,17 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.simplepoc.avro.utils.Constraints;
 
 import java.util.Properties;
 
 public class KafkaAvroProducerV1 {
 
-    public static final String SCHEMA_REGISTRY_URL = "http://127.0.0.1:8081";
-    public static final String KAFKA_BOOTSTRAP_SERVER = "127.0.0.1:9092";
-    public static final String TOPIC = "customer-avro";
-
     public static void main(String[] args) {
         KafkaProducer<String, Customer> kafkaProducer = getStringCustomerKafkaProducer();
         Customer customer = getTestCustomer();
         ProducerRecord<String, Customer> producerRecord = new ProducerRecord<String, Customer>(
-                TOPIC, customer
+                Constraints.TOPIC, customer
         );
 
         kafkaProducer.send(producerRecord, new Callback() {
@@ -42,14 +39,14 @@ public class KafkaAvroProducerV1 {
 
     private static KafkaProducer<String, Customer> getStringCustomerKafkaProducer() {
         Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", KAFKA_BOOTSTRAP_SERVER);
+        properties.setProperty("bootstrap.servers", Constraints.KAFKA_BOOTSTRAP_SERVER);
         properties.setProperty("acks", "1");
         properties.setProperty("retries", "9");
 
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer", KafkaAvroSerializer.class.getName());
 
-        properties.setProperty("schema.registry.url", SCHEMA_REGISTRY_URL);
+        properties.setProperty("schema.registry.url", Constraints.SCHEMA_REGISTRY_URL);
 
         KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<String, Customer>(properties);
         return kafkaProducer;
@@ -57,13 +54,13 @@ public class KafkaAvroProducerV1 {
 
     private static Customer getTestCustomer() {
         return Customer.newBuilder()
-                .setFirstName("Adriano")
+                .setFirstName("Sara")
                 .setLastName("Goncalves")
-                .setAge(35)
-                .setHeight(173.4f)
+                .setAge(36)
+                .setHeight(165.0f)
                 .setWeight(80.9f)
                 .setAutomatedEmail(false)
-                .setIsActive(true)
+                .setIsActive(false)
                 .build();
     }
 
