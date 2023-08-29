@@ -17,17 +17,7 @@ public class KafkaAvroProducerV1 {
     public static final String TOPIC = "customer-avro";
 
     public static void main(String[] args) {
-        Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", KAFKA_BOOTSTRAP_SERVER);
-        properties.setProperty("acks", "1");
-        properties.setProperty("retries", "9");
-
-        properties.setProperty("key.serializer", StringSerializer.class.getName());
-        properties.setProperty("value.serializer", KafkaAvroSerializer.class.getName());
-
-        properties.setProperty("schema.registry.url", SCHEMA_REGISTRY_URL);
-
-        KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<String, Customer>(properties);
+        KafkaProducer<String, Customer> kafkaProducer = getStringCustomerKafkaProducer();
         Customer customer = getTestCustomer();
         ProducerRecord<String, Customer> producerRecord = new ProducerRecord<String, Customer>(
                 TOPIC, customer
@@ -50,6 +40,21 @@ public class KafkaAvroProducerV1 {
         kafkaProducer.close();
     }
 
+    private static KafkaProducer<String, Customer> getStringCustomerKafkaProducer() {
+        Properties properties = new Properties();
+        properties.setProperty("bootstrap.servers", KAFKA_BOOTSTRAP_SERVER);
+        properties.setProperty("acks", "1");
+        properties.setProperty("retries", "9");
+
+        properties.setProperty("key.serializer", StringSerializer.class.getName());
+        properties.setProperty("value.serializer", KafkaAvroSerializer.class.getName());
+
+        properties.setProperty("schema.registry.url", SCHEMA_REGISTRY_URL);
+
+        KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<String, Customer>(properties);
+        return kafkaProducer;
+    }
+
     private static Customer getTestCustomer() {
         return Customer.newBuilder()
                 .setFirstName("Adriano")
@@ -58,6 +63,7 @@ public class KafkaAvroProducerV1 {
                 .setHeight(173.4f)
                 .setWeight(80.9f)
                 .setAutomatedEmail(false)
+                .setIsActive(true)
                 .build();
     }
 

@@ -34,6 +34,12 @@
       "type": "boolean",
       "default": true,
       "doc": "True if customer wants receive marketing emails"
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "default": true,
+      "doc": "True if customer is active"
     }
   ]
 }
