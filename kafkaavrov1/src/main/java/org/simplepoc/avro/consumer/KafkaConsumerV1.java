@@ -14,6 +14,26 @@ import java.util.Properties;
 public class KafkaConsumerV1 {
 
     public static void main(String[] args) {
+        Properties properties = getProperties();
+
+        KafkaConsumer<String, Customer> consumer = new KafkaConsumer<String, Customer>(properties);
+
+        consumer.subscribe(Collections.singletonList(Constraints.TOPIC));
+
+        System.out.println("Wainting for data...");
+
+        while (true) {
+            ConsumerRecords<String, Customer> records = consumer.poll(1000);
+            for (ConsumerRecord<String, Customer> record : records){
+                Customer customer = record.value();
+                System.out.println(customer);
+            }
+            consumer.commitSync();
+        }
+
+    }
+
+    private static Properties getProperties() {
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", Constraints.KAFKA_BOOTSTRAP_SERVER);
         properties.setProperty("group.id", "test-avro-consumer");
@@ -24,22 +44,7 @@ public class KafkaConsumerV1 {
         properties.setProperty("value.deserializer", KafkaAvroDeserializer.class.getName());
         properties.setProperty("schema.registry.url", Constraints.SCHEMA_REGISTRY_URL);
         properties.setProperty("specific.avro.reader", "true");
-
-        KafkaConsumer<String, Customer> consumer = new KafkaConsumer<String, Customer>(properties);
-
-        consumer.subscribe(Collections.singletonList(Constraints.TOPIC));
-
-        System.out.println("Wainting for data...");
-
-        while (true) {
-            ConsumerRecords<String, Customer> records = consumer.poll(500);
-            for (ConsumerRecord<String, Customer> record : records){
-                Customer customer = record.value();
-                System.out.println(customer);
-            }
-            consumer.commitSync();
-        }
-
+        return properties;
     }
 
 }
