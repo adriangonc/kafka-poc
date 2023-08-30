@@ -53,7 +53,7 @@ public class KafkaAvroProducerV2 {
 
     private static Customer getTestCustomer() {
         return Customer.newBuilder()
-                .setFirstName("Sara")
+                .setFirstName("Adriano")
                 .setLastName("Goncalves")
                 .setAge(36)
                 .setHeight(165.0f)
