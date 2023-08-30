@@ -57,7 +57,7 @@ public class KafkaAvroProducerV2 {
                 .setLastName("Goncalves")
                 .setAge(36)
                 .setHeight(165.0f)
-                .setWeight(80.9f)
+                .setWeight(75.9f)
                 .setPhoneNumber("31 98888-7777")
                 .setEmail("adriangonc@yahoo.com.br")
                 .build();
