@@ -32,12 +32,18 @@ public class GenerateRandomData {
     public static int getRandomAge(){
         int min = 12, max = 100;
         Random r = new Random();
-        return r.nextInt(max -min) + max;
+        return r.nextInt(max -min) + min;
     }
 
     public static Float getRandomHeight(){
         Float min = 120f, max = 210f;
         Random r = new Random();
-        return (float) (r.nextInt((int) (max -min)) + max);
+        return (float) (r.nextInt((int) (max -min)) + min);
+    }
+
+    public static Float getRandomWeight(){
+        Float min = 40f, max = 120f;
+        Random r = new Random();
+        return (float) (r.nextInt((int) (max -min)) + min);
     }
 }

@@ -58,7 +58,7 @@ public class KafkaAvroProducerV2 {
                 .setLastName(GenerateRandomData.getRandomLastName())
                 .setAge(GenerateRandomData.getRandomAge())
                 .setHeight(GenerateRandomData.getRandomHeight())
-                .setWeight(75.9f)
+                .setWeight(GenerateRandomData.getRandomWeight())
                 .setPhoneNumber("31 98888-7777")
                 .setEmail("adriangonc@yahoo.com.br")
                 .build();
