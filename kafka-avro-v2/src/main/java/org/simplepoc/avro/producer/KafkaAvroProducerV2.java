@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.simplepoc.avro.util.Constraints;
+import org.simplepoc.avro.util.GenerateRandomData;
 
 import java.util.Properties;
 
@@ -53,10 +54,10 @@ public class KafkaAvroProducerV2 {
 
     private static Customer getTestCustomer() {
         return Customer.newBuilder()
-                .setFirstName("Adriano")
-                .setLastName("Goncalves")
-                .setAge(36)
-                .setHeight(165.0f)
+                .setFirstName(GenerateRandomData.getRandomFirstName())
+                .setLastName(GenerateRandomData.getRandomLastName())
+                .setAge(GenerateRandomData.getRandomAge())
+                .setHeight(GenerateRandomData.getRandomHeight())
                 .setWeight(75.9f)
                 .setPhoneNumber("31 98888-7777")
                 .setEmail("adriangonc@yahoo.com.br")
