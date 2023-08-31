@@ -21,4 +21,11 @@ public class GenerateRandomNames {
 
         return firstName;
     }
+
+    public static String getRandomLastName(){
+        Random r = new Random();
+        String lastName = LAST_NAMES[r.nextInt(LAST_NAMES.length)];
+
+        return lastName;
+    }
 }
