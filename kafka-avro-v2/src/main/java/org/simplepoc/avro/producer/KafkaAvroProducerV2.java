@@ -53,14 +53,16 @@ public class KafkaAvroProducerV2 {
     }
 
     private static Customer getTestCustomer() {
+        String randomFirstName = GenerateRandomData.getRandomFirstName();
+        String randomLastName = GenerateRandomData.getRandomLastName();
         return Customer.newBuilder()
-                .setFirstName(GenerateRandomData.getRandomFirstName())
-                .setLastName(GenerateRandomData.getRandomLastName())
+                .setFirstName(randomFirstName)
+                .setLastName(randomLastName)
                 .setAge(GenerateRandomData.getRandomAge())
                 .setHeight(GenerateRandomData.getRandomHeight())
                 .setWeight(GenerateRandomData.getRandomWeight())
                 .setPhoneNumber("31 98888-7777")
-                .setEmail("adriangonc@yahoo.com.br")
+                .setEmail(randomFirstName.toLowerCase() + randomLastName.toLowerCase() + "@" + GenerateRandomData.getRandomEmailDomain())
                 .build();
     }
 }

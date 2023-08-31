@@ -6,6 +6,7 @@ public class GenerateRandomData {
 
     private static final String[] FIRST_NAMES = {"Ana", "Sara", "Adriano", "John", "Maria", "Ripley", "Leon", "Jose", "Jennifer", "Artoris", "Jim"};
     private static final String[] LAST_NAMES = {"Souza", "Raynor", "Lawrence", "Williams", "Costa", "Kruger", "Scot Kenedy", "Wilson", "Kerrigan", "Taylor", "Anderson", "Thomas", "Jason"};
+    private static final String[] EMAIL_DOMAIN = {"yahoo.com.br", "hotmail.com", "yahoo.com", "gmail.com", "uol.com"};
 
     public static String generateRandomNames(){
         Random r = new Random();
@@ -45,5 +46,11 @@ public class GenerateRandomData {
         Float min = 40f, max = 120f;
         Random r = new Random();
         return (float) (r.nextInt((int) (max -min)) + min);
+    }
+
+
+    public static String getRandomEmailDomain() {
+        Random r = new Random();
+        return EMAIL_DOMAIN[r.nextInt(EMAIL_DOMAIN.length)];
     }
 }
